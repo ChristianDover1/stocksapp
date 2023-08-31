@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import Link from "next/link"
-import myFetch from "src/utils/myFetch"
+import authFetch from "src/utils/authFetch"
 import DarkBlue from "highcharts/themes/dark-blue"
 import { parseRawToChart } from "src/utils/parse/rawToChart"
 
@@ -27,10 +27,10 @@ export default function LineChart(props) {
 
   function updateChartData(range) {
     setUrlId(router.query.id)
-    myFetch(`/api/stocks/${router.query.id}/chart?range=${range}`, {
+    authFetch(`/api/stocks/${router.query.id}/chart?range=${range}`, {
       method: "GET",
     }).then((data) => {
-      if (Object.keys(data).length === 0) {
+      if (!data || Object.keys(data).length === 0) {
         return
       }
       setChartData(() => {
@@ -62,13 +62,13 @@ export default function LineChart(props) {
   useEffect(() => {
     if (router.isReady) {
       setUrlId(router.query.id)
-      fetch(`/api/news/${router.query.id}`, {
+      authFetch(`/api/news/${router.query.id}`, {
         method: "GET",
       })
-        .then((response) => {
-          return response.json()
-        })
         .then((data) => {
+          if (!data){
+              return
+            }
           setChartDetails(data.details)
           setChartNews(data.news)
         })

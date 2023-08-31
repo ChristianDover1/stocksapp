@@ -15,6 +15,7 @@ export default function About() {
       </p>
       <p>/stocks/id Because of free Api limitiations only daily graphs are supported</p>
       <h2>
+      JWT
         Api&apos;s Used:
         <br />
       </h2>

@@ -24,7 +24,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
- "pages/index.tsx", "pages/stocks/index.js", "pages/api/auth/put.js", "pages/api/news/trending/index.ts", "src/api/getUser.ts", "pages/api/stocks/updateTrendingStocks.js", "pages/stocks/[id].js", "src/components/stocks/StockNews.js", "src/utils/myFetch.js"  ],
+ "pages/index.tsx", "pages/stocks/index.js", "pages/api/auth/put.js", "pages/api/news/trending/index.ts", "src/api/getUser.ts", "pages/api/stocks/updateTrendingStocks.js", "pages/stocks/[id].js", "src/components/stocks/StockNews.js", "src/utils/authFetch.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -3,7 +3,7 @@ import cookie from "js-cookie"
 import { useState, useEffect } from "react"
 import Stock from "./Stock"
 import classes from "./TrendingStocks.module.css"
-import myFetch from "src/utils/myFetch"
+import authFetch from "src/utils/authFetch"
 
 export default function TrendingStocks(props) {
   const [dataLoaded, setDataLoaded] = useState(false)
@@ -12,7 +12,7 @@ export default function TrendingStocks(props) {
   useEffect(() => {
     // Get Data
     const authCookie = cookie.get("auth")
-    const data = myFetch(`/api/stocks/trending`, {
+    const data = authFetch(`/api/stocks/trending`, {
       method: "GET",
       headers: {
         auth: authCookie,

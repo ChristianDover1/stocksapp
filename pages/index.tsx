@@ -4,7 +4,7 @@ import cookie from "js-cookie"
 import { parseRawToChart } from "src/utils/parse/rawToChart"
 import Chart from "src/components/stocks/Chart"
 import StockNews from "src/components/stocks/StockNews"
-import myFetch from "src/utils/myFetch"
+import authFetch from "src/utils/authFetch"
 
 import "react-responsive-carousel/lib/styles/carousel.min.css" // requires a loader
 import { Carousel } from "react-responsive-carousel"
@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     const authCookie = cookie.get("auth")
-    myFetch(`/api/news/trending`, {
+    authFetch(`/api/news/trending`, {
       method: "GET",
     }).then((data) => {
       if (Object.keys(data).length === 0) {
@@ -29,7 +29,7 @@ export default function Home() {
       })
     })
 
-    myFetch(`/api/stocks/trending/chart`, {
+    authFetch(`/api/stocks/trending/chart`, {
       method: "GET",
       headers: {
         auth: authCookie,

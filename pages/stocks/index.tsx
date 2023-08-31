@@ -1,7 +1,7 @@
 import Stock from "src/components/stocks/Stock"
 import classes from "styles/stocks.module.css"
 import cookie from "js-cookie"
-import myFetch from "src/utils/myFetch"
+import authFetch from "src/utils/authFetch"
 import StockPredictions from "src/components/stocks/StockPredictions"
 import { useState, Component, useEffect } from "react"
 
@@ -16,20 +16,28 @@ export default function Stocks() {
   const [stockPredictions, setStockPredictions] = useState<PredictionT[]>([])
 
   useEffect(() => {
+    // if (cookie.get("auth") == undefined) {
+    //   window.location.href = "/"
+    //   return
+    // }
     const authCookie = cookie.get("auth")
-    myFetch(`/api/stocks`, {
+    var stocksPromise = authFetch(`/api/stocks`, {
       method: "GET",
       headers: {
         auth: authCookie,
       },
-    }).then((data) => {
-      if (typeof data.stocks === "undefined") {
-        data.stocks = []
+    })
+    stocksPromise.then((data) => {
+      if (!data){
+        return
       }
+      // if (typeof data.stocks === "undefined") {
+      //   data.stocks = []
+      // }
       setUser(data.user)
       setStocks(() => {
         return data.stocks.map((item) => {
-          return { ...item, favorited: true }
+          return { ... item, favorited: true }
         })
       })
       const tickers = data.stocks.map((stockItem) => {
@@ -153,7 +161,6 @@ export default function Stocks() {
   i = 0
   if (dataLoaded && typeof stocks != "undefined") {
     stocksList = stocks.map((item) => {
-      //handle getting bad stock data
       return (
         <Stock
           key={i}
