@@ -3,10 +3,12 @@ import { MongoClient } from "mongodb"
 
 import { NextApiRequest, NextApiResponse } from "next"
 
-const SIX_HOURS = 21600000
+// const SIX_HOURS = 21600000
+const SIX_HOURS = 0
 
 export default async function getStockDetails(req: NextApiRequest, res: NextApiResponse) {
   const client = await MongoClient.connect(process.env.MONGODB_URI)
+
   const db = client.db()
   const otherCollection = db.collection("other")
   const trending = await otherCollection.findOne({ key: "trending-news" })
@@ -23,6 +25,7 @@ export default async function getStockDetails(req: NextApiRequest, res: NextApiR
       api_key: process.env.CLOUD_API_KEY,
       api_secret: process.env.CLOUD_API_SECRET,
     })
+
     const newsPromise = newsData.map((item) => {
       return cloudinary.uploader
         .upload(item.image_url, { public_id: item.uuid, tags: "express_sample" })
@@ -40,6 +43,7 @@ export default async function getStockDetails(req: NextApiRequest, res: NextApiR
         },
       },
     }
+
     otherCollection.updateOne({ key: "trending-news" }, update1)
     res.status(200).send({ news: newsData })
     return

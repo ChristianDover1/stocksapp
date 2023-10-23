@@ -25,7 +25,6 @@ export default async function getTrendingStocks() {
         const tickers = data.finance.result[0].quotes.map((item) => {
           return item.symbol
         })
-        // return fetch(`https://query1.finance.yahoo.com/v6/finance/quote?symbols=${tickers.join(',')}`,{
         return fetch(`https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${tickers.join(",")}`, {
           method: "GET",
           headers: { "x-api-key": process.env.YAHOOFINANCE_API },
@@ -34,7 +33,10 @@ export default async function getTrendingStocks() {
             return response.json()
           })
           .then((data) => {
-            if (data.quoteResponse.error) throw data.finance.error
+            if (data.quoteResponse.error) {
+              console.log(data.finance.error)
+              return []
+            }
             var resData = data.quoteResponse.result.map((item) => {
               return {
                 symbol: item.symbol,

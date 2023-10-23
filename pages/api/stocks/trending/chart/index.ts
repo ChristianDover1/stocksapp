@@ -20,7 +20,7 @@ export default async function getTrendingCharts(req: NextApiRequest, res: NextAp
 
   //in progress
   if (false) {
-    console.log("running update")
+    console.log("running update get trending charts")
     var tickers = await fetch(`https://yfapi.net/v1/finance/trending/us`, {
       method: "GET",
       headers: {
@@ -31,7 +31,6 @@ export default async function getTrendingCharts(req: NextApiRequest, res: NextAp
         return response.json()
       })
       .then((data) => {
-        console.log("tickers data ", JSON.stringify(data))
         const quotes = data.finance.result[0].quotes
         // Need to format tickers before sending to alphavantage Example ('BTC-USD', 'GLXY.TO') are invalid symbols
         return [quotes[0].symbol, quotes[1].symbol, quotes[2].symbol]
@@ -39,7 +38,7 @@ export default async function getTrendingCharts(req: NextApiRequest, res: NextAp
     var i = 0
     var chartPromises = tickers.map((ticker) => {
       if (i++ > 3) {
-        console.log("OVER 3 REQUESTS~!@!##!@#!")
+        console.log("OVER 3 REQUESTS")
         return
       }
       return fetch(
@@ -51,7 +50,6 @@ export default async function getTrendingCharts(req: NextApiRequest, res: NextAp
           return response.json()
         })
         .then((data) => {
-          console.log("chart data ", data)
           return data
         })
     })
@@ -65,7 +63,6 @@ export default async function getTrendingCharts(req: NextApiRequest, res: NextAp
         },
       },
     }
-    console.log(chartsData)
     otherCollection.updateOne({ key: "trending-stocks-charts" }, update)
     client.close()
     res.status(201)

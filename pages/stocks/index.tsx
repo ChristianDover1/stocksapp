@@ -16,10 +16,6 @@ export default function Stocks() {
   const [stockPredictions, setStockPredictions] = useState<PredictionT[]>([])
 
   useEffect(() => {
-    // if (cookie.get("auth") == undefined) {
-    //   window.location.href = "/"
-    //   return
-    // }
     const authCookie = cookie.get("auth")
     var stocksPromise = authFetch(`/api/stocks`, {
       method: "GET",
@@ -35,20 +31,22 @@ export default function Stocks() {
       //   data.stocks = []
       // }
       setUser(data.user)
-      setStocks(() => {
-        return data.stocks.map((item) => {
-          return { ... item, favorited: true }
+      if (data.stocks != undefined) {
+        setStocks(() => {
+          return data.stocks.map((item) => {
+            return { ... item, favorited: true }
+          })
         })
-      })
-      const tickers = data.stocks.map((stockItem) => {
-        return stockItem.symbol
-      })
-      setTrendingStocks((item) => {
-        return data.trending.map((item) => {
-          return item.symbol in tickers ? { ...item, favorited: true } : item
+        const tickers = data.stocks.map((stockItem) => {
+          return stockItem.symbol
         })
-      })
-      setDataLoaded(true)
+        setTrendingStocks((item) => {
+          return data.trending.map((item) => {
+            return item.symbol in tickers ? { ...item, favorited: true } : item
+          })
+        })
+        setDataLoaded(true)
+      }
     })
   }, [])
 
