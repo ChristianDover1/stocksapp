@@ -50,7 +50,13 @@
 }
 
 .stocksContainer{
-    margin: auto auto;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap ;
+}
+
+.stocksContainerss{
+    margin: auto;
     display:inline-flex;
     flex-shrink: 2;
     flex-grow: 0;
@@ -63,6 +69,12 @@
     flex-wrap:wrap;
     width: fit-content;
     /* max-width: 1260px; */
+}
+
+.stocksContainer:first{
+    width: 10px;
+    background-color: red;
+    color: red;
 }
 
 .cryptoDisclaimer{

@@ -3,8 +3,7 @@ import { MongoClient } from "mongodb"
 
 import { NextApiRequest, NextApiResponse } from "next"
 
-// const SIX_HOURS = 21600000
-const SIX_HOURS = 0
+const SIX_HOURS = 21600000
 
 export default async function getStockDetails(req: NextApiRequest, res: NextApiResponse) {
   const client = await MongoClient.connect(process.env.MONGODB_URI)

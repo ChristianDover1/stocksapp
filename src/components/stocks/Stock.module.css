@@ -1,13 +1,15 @@
 .stockContainer{
+    /* margin: auto; */
     color:black;
     width: 400px;
-    height: 150px;
+    min-height: 150px;
     font-size: 18px;
     background-color: #00ace1;
     margin: 10px 5px; 
     display: table;
     padding-bottom: 10px;
     border-radius: 15px;
+    
 }
 .row{
     display:table-row;

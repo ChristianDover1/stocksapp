@@ -27,9 +27,6 @@ export default function Stocks() {
       if (!data){
         return
       }
-      // if (typeof data.stocks === "undefined") {
-      //   data.stocks = []
-      // }
       setUser(data.user)
       if (data.stocks != undefined) {
         setStocks(() => {
@@ -220,6 +217,7 @@ export default function Stocks() {
       <hr className={classes.hr2} />
       <hr className={classes.hr3} />
       <div className={classes.stocksContainer}>{dataLoaded && stocksList}</div>
+      {/* <div className={classes.stocksContainer}><div className={classes.test}></div ><div className={classes.test}></div></div> */}
       <h1 className={classes.title}>FEATURED STOCKS</h1>
       <hr className={classes.hr1} />
       <hr className={classes.hr2} />
