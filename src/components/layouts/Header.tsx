@@ -15,31 +15,44 @@ function Header(props) {
   }
   return (
     <div className={classes.header}>
-      <Link href="/" passHref>
-        <Image src="/header/logo.png" alt="" height={100} width={250} className={classes.logo}></Image>
+      <Link href="/" passHref legacyBehavior>
+        <Image
+          priority={true}
+          src="/header/logo.png"
+          alt=""
+          height={100}
+          width={250}
+          className={classes.logo}
+        />
       </Link>
       <div className={classes.topnav}>
-        <Link href="/">
-          <a className={classes.navItem}>Home</a>
+        <Link href="/" className={classes.navItem}>
+          Home
         </Link>
-        <Link href="/stocks">
-          <a className={classes.navItem}>Stocks</a>
+        <Link href="/stocks" className={classes.navItem}>
+          Stocks
         </Link>
-        <Link href="/about">
-          <a className={classes.navItem}>About</a>
+        <Link href="/about" className={classes.navItem}>
+          About
         </Link>
         {props.user && props.user.length > 0 && (
           <div className={`${classes.navItem} ${classes.dropDown}`}>
-            {props.user}
+            <span className={classes.userName}>{props.user}</span>
             <span className={classes.loggedInIcon}>
-              <Image src="/images/signed-in.png" alt="" height={20} width={20}></Image>
+              <Image
+                priority={true}
+                src="/images/signed-in.png"
+                alt=""
+                height={15}
+                width={15}
+              />
             </span>
             <div className={`${classes.dropDownMenu} ${classes.informationGrid}`}>
               <div>
                 <div className={classes.dropDownHeading}>Stocks</div>
                 <div className={classes.dropDownLinks}>
                   <Link href="/stocks">
-                    <a>My Stocks</a>
+                    My Stocks
                   </Link>
                   <br />
                 </div>
@@ -48,10 +61,10 @@ function Header(props) {
                 <div className={classes.dropDownHeading}>Account</div>
                 <div className={classes.dropDownLinks}>
                   <Link href={"/user/".concat(props.user)}>
-                    <a>Account Settings</a>
+                    Account Settings
                   </Link>
-                  <Link href="/">
-                    <a onClick={handleLogOut}>Sign Out</a>
+                  <Link href="/" onClick={handleLogOut}>
+                    Sign Out
                   </Link>
                   <br />
                 </div>
@@ -61,13 +74,13 @@ function Header(props) {
         )}
 
         {(props.user && props.user.length != 0) || (
-          <Link href="/login">
-            <a className={classes.navItem}>Sign In</a>
+          <Link href="/login" className={classes.navItem}>
+            Sign In
           </Link>
         )}
       </div>
     </div>
-  )
+  );
 }
 
 export default Header

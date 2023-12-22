@@ -18,6 +18,8 @@
 
 .newsImage{
     object-fit: contain;
+    max-width: "auto";
+    height: "200px";
 }
 
 .hLine{
@@ -40,7 +42,7 @@
     .leftAlign{
         text-align: left;
     }
-    .newsImage{
+    /* .newsImage{
         margin-left: 200px;
-    }
+    } */
   }

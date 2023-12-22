@@ -9,7 +9,7 @@ import { NextApiRequest, NextApiResponse } from "next"
 export default authenticated(async function getStocks(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     const trendingStocks = getTrendingStocks()
-    console.log("getStocks")
+
     var q = url.parse(req.url, true).query
 
     var user, stocks
@@ -27,12 +27,8 @@ export default authenticated(async function getStocks(req: NextApiRequest, res: 
         res.status(400).send({ message: "Yahoo Finance free Api only supports 10 stocks at a time." })
         return
       }
-      stocks = user.stocks.map((item) => {
-        return item.replace(/[.^=-]/, "") //. ^ = - indicate invalid stock types
-      }).join(",")
-      console.log("stocks", stocks)
+      stocks = user.stocks.join(",")
     }
-    console.log("stocks", stocks)
     // return
     if (stocks.length == 0) {
       trendingStocks.then((trendingStocks) => {

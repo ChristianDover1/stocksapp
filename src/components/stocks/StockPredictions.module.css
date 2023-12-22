@@ -1,5 +1,5 @@
 .predictionsContainer{
-    color: #FFF;
+    color: white;
     width: 450px;
     margin: auto;
     position: absolute;
@@ -7,26 +7,30 @@
     text-align: center;
     left: 0; 
     right: 0; 
+    box-shadow: #211e1f 0px 0px 10px 0px;
 }
 
 .item{
     display: flex;
     justify-content: space-between;
-    color: #111;
-    background-color: #E8F0F5;
+    color: white;
+    background-color: #211e1f;
     min-height: 35px;
     line-height: 35px;
     padding: 0 15px;
 }
 .item:hover{
-    color: #fff;
+    color: #00ace1;
     cursor: pointer;
-    background-color: #00ace1;
+    /* background-color: #00ace1; */
 }
 .closeButton{
-    margin-top: 5px;
+    background-color: #211e1f;  
+    color: #fff;
+    margin-top: 0px;
     border: none;
     font-size: 26px;
+    width: inherit;
 }
 .closeButton:hover{
     cursor: pointer;
@@ -37,5 +41,4 @@
     .predictionsContainer{
         width: 550px;
     }
-    
 }

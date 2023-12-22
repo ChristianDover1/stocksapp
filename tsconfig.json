@@ -18,13 +18,28 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
- "pages/index.tsx", "pages/stocks/index.js", "pages/api/auth/put.js", "pages/api/news/trending/index.ts", "src/api/getUser.ts", "pages/api/stocks/updateTrendingStocks.js", "pages/stocks/[id].js", "src/components/stocks/StockNews.js", "src/utils/authFetch.js"  ],
+    "pages/index.tsx",
+    "pages/stocks/index.js",
+    "pages/api/auth/put.js",
+    "pages/api/news/trending/index.ts",
+    "src/api/getUser.ts",
+    "pages/api/stocks/updateTrendingStocks.js",
+    "pages/stocks/[id].js",
+    "src/components/stocks/StockNews.js",
+    "src/utils/authFetch.js",
+    ".next/types/**/*.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

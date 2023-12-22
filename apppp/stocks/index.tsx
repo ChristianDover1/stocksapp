@@ -37,9 +37,9 @@ export default function Stocks() {
         const tickers = data.stocks.map((stockItem) => {
           return stockItem.symbol
         })
-        setTrendingStocks(() => {
+        setTrendingStocks((item) => {
           return data.trending.map((item) => {
-            return tickers.includes(item.symbol) ? { ...item, favorited: true } : item
+            return item.symbol in tickers ? { ...item, favorited: true } : item
           })
         })
         setDataLoaded(true)
@@ -96,7 +96,7 @@ export default function Stocks() {
     updatedSymbols.push(symbol)
     const type = parseYFSymbol(symbol).type
     if (type != "Stock") {
-      alert('"Any symbol with a ". = ^ -" is a non supported stock type.')
+      alert('"Any symbol with a ". = ^ -" is not supported')
       return
     }
     setStockPredictions([])
@@ -130,7 +130,7 @@ export default function Stocks() {
     const symbols = stocks.map((stockItem) => {
       return stockItem.symbol
     })
-    if (symbols.includes(trendingStocks[position].symbol) || trendingStocks[position].favorited) {
+    if (trendingStocks[position].symbol in symbols) {
       return
     }
     setStocks((currentStocks) => {

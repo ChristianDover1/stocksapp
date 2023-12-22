@@ -9,8 +9,9 @@
 }
 
 .logo{
-    height: 150px;
-    min-width: 200px;
+    padding-top: 5px;
+    height: 120px;
+    min-width: 250px;
     background-color: #211e1f;
     cursor: pointer;
 }
@@ -26,17 +27,19 @@
     background-color: none;
     color: #00ace1;
     text-align: center;
-    padding: 15px 25px 16px 25px;
+    line-height: 50px;
+    margin: auto;
+    padding: 0 20px;
     text-decoration: none;
     font-size: 17px;
     border-left: 3px solid #211e1f;
     border-radius: 10px;
 }
 
-
 .loggedInIcon{
-    position: absolute;
+    /* position: absolute; */
     padding-left: 5px;
+    width: 5px;
 }
 
 .dropDown{
@@ -91,7 +94,19 @@
 @media (max-width: 700px) {
     .navItem {
         font-size:16px;
-        padding:18px 5px;
+        padding:0 5px;
+    }
+}
+@media (max-width: 500px) {
+    .navItem {
+        font-size:14px;
+        padding:0 1px;
+    }
+    .userName{
+        display: none;
+    }
+    .logo{
+        min-width: 200px;
     }
 }
 
