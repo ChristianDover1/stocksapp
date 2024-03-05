@@ -81,11 +81,15 @@ export default function Stocks() {
         return response.json()
       })
       .then((data) => {
-        setStockPredictions(
-          data.predictions.map((item) => {
-            return { ...item }
-          })
-        )
+        setStockPredictions(()=>
+        {
+        if (data.predictions == undefined) {
+          return []
+        }
+        data.predictions.map((item) => {
+          return { ...item }
+        })
+        })
       })
   }
 

@@ -6,6 +6,12 @@ const nextConfig = {
 module.exports = {
   ...nextConfig,
   images: {
-    domains: ['res.cloudinary.com'],
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: 'res.cloudinary.com',
+        pathname: "**",
+      },
+    ],
   }
 }
