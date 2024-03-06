@@ -18,7 +18,7 @@ export default authenticated(async function getStocks(req: NextApiRequest, res: 
       user = await getUser(req.body.email)
       if (typeof user == "undefined") {
         console.log("user undefined")
-        res.status(400).send({ message: "User Doesn't Exist." }) // FIX
+        res.status(400).send({ message: "User Doesn't Exist." })
         return
       }
       if (user.stocks.length > 10) {
@@ -32,8 +32,7 @@ export default authenticated(async function getStocks(req: NextApiRequest, res: 
     }
     if (stocks.length == 0) {
       trendingStocks.then((trendingStocks) => {
-        res.status(201)
-        res.send({ user: user, stocks: [], trending: trendingStocks })
+        res.status(201).send({ user: user, stocks: [], trending: trendingStocks })
       })
       return
     }
