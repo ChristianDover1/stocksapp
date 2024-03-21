@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import classes from "styles/Home.module.css"
-import cookie from "js-cookie"
+// import cookie from "js-cookie"
 import { parseRawToChart } from "src/utils/parse/rawToChart"
 import Chart from "src/components/stocks/Chart"
 import StockNews from "src/components/stocks/StockNews"
@@ -15,10 +15,11 @@ export default function Home() {
   const [trendingNews, setTrendingNews] = useState<any>([])
 
   useEffect(() => {
-    const authCookie = cookie.get("auth")
-    authFetch(`/api/news/trending`, {
+    fetch(`/api/news/trending`, {
       method: "GET",
-    }).then((data) => {
+    })
+    .then((response) => response.json())
+    .then((data) => {
       if (Object.keys(data).length === 0) {
         return
       }
@@ -29,12 +30,11 @@ export default function Home() {
       })
     })
 
-    authFetch(`/api/stocks/trending/chart`, {
+    fetch(`/api/stocks/trending/chart`, {
       method: "GET",
-      headers: {
-        auth: authCookie,
-      },
-    }).then((data) => {
+    })
+    .then((response) => response.json())
+    .then((data) => {
       if (Object.keys(data).length === 0) {
         return
       }

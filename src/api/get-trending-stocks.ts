@@ -1,6 +1,7 @@
 var url = require("url")
 import { MongoClient, ServerApiVersion } from "mongodb"
 import { NextApiRequest, NextApiResponse } from "next"
+import getUser from "./getUser"
 
 const DAY = 86400000
 
@@ -22,25 +23,23 @@ export default async function getTrendingStocks() {
         return response.json()
       })
       .then((data) => {
-        console.log("trending stocks data", data)
         const tickers = data.finance.result[0].quotes.map((item) => {
           return item.symbol
         })
-        console.log("trending stocks tickers", tickers)
         return fetch(`https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${tickers.join(",")}`, {
           method: "GET",
           headers: { "x-api-key": process.env.YAHOOFINANCE_API },
         })
           .then((response) => {
-            console.log("trending stocks response:!!!!!!!!!!!!", response)
+            // console.log("trending stocks response:!!!!!!!!!!!!",response.json())
             return response.json()
           })
           .then((data) => {
-            console.log("trending stocks data!!!!!!!!!!!", data)
             if (data.quoteResponse.error) {
               console.log(data.quoteResponse.error)
               return []
             }
+            // console.log("trending stocks resData", resData)
             var resData = data.quoteResponse.result.map((item) => {
               return {
                 symbol: item.symbol,

@@ -1,16 +1,10 @@
+import cookie from "js-cookie"
+
 export default async function authFetch(url, options) {
-  const response = await fetch(url, {
-    method: options.method,
-    headers: {},
-  })
+  // if(cookie.get("data") === undefined){
+  //   window.location.href = "/login"
+  // }
+  const response = await fetch(url, options)
   const data = await response.json()
-  if (response.status === 401) {
-    window.location.href = "/login"
-    return false
-  }
-  if (response.status === 400) {
-    window.location.href = "/login"
-    return false
-  }
   return data
 }

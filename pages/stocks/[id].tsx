@@ -123,7 +123,7 @@ export default function LineChart(props) {
   }, [chartNews])
   return (
     <div>
-      {apiCallLimit && <h1>Sorry the free Alpha Vantage API only supports 5 requests/min. Try again in a minute </h1>}
+      {apiCallLimit && <h1>The chart and/or data cannot be viewed due to the free Alpha Vantage API only supporting 25 requests per day</h1>}
       {Object.keys(chartData).length === 0 || (
         <>
           {apiCallLimit || <Chart options={chartOptions} theme={DarkBlue} />}

@@ -20,7 +20,6 @@ export default async function getTrendingCharts(req: NextApiRequest, res: NextAp
 
   //in progress
   if (false) {
-    console.log("running update get trending charts")
     var tickers = await fetch(`https://yfapi.net/v1/finance/trending/us`, {
       method: "GET",
       headers: {

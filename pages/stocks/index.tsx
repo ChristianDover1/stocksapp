@@ -13,9 +13,11 @@ export default function Stocks() {
   const [stocks, setStocks] = useState<StockT[]>([])
   const [trendingStocks, setTrendingStocks] = useState<StockT[]>([])
   const [user, setUser] = useState({ email: "" })
-  const [stockPredictions, setStockPredictions] = useState<PredictionT[]>([])
+  // const [stockPredictions, setStockPredictions] = useState<PredictionT[]>([])
+  const [stockPredictions, setStockPredictions] = useState([])
 
   useEffect(() => {
+    // get user and stocks data
     const authCookie = cookie.get("auth")
     var stocksPromise = authFetch(`/api/stocks`, {
       method: "GET",
@@ -81,14 +83,19 @@ export default function Stocks() {
         return response.json()
       })
       .then((data) => {
+        console.log(data)
         setStockPredictions(()=>
         {
-        if (data.predictions == undefined) {
-          return []
-        }
-        data.predictions.map((item) => {
-          return { ...item }
-        })
+          if (data.predictions == undefined) {
+            return []
+          }
+          // close predictions on click
+          document.addEventListener('click', () => {
+            setStockPredictions([])
+          }, {once: true});
+          return data.predictions.map((item) => {
+            return { ...item }
+          })
         })
       })
   }
@@ -104,7 +111,7 @@ export default function Stocks() {
       return
     }
     setStockPredictions([])
-    fetch(`/api/stocks?options=new&stocks=${symbol}`, {
+    authFetch(`/api/stocks?options=new&stocks=${symbol}`, {
       method: "GET",
       headers: { auth: cookie.get("auth") },
     })
@@ -195,7 +202,7 @@ export default function Stocks() {
       )
     })
   }
-
+  
   return (
     <>
       <div className={classes.inputDiv}>
@@ -208,14 +215,15 @@ export default function Stocks() {
         </button>
         {stockPredictions.length > 0 && (
           <StockPredictions
-            predictions={stockPredictions}
-            addHandler={(symbol: string) => addHandler(symbol)}
-            closeHandler={() => {
-              setStockPredictions([])
-            }}
+          predictions={stockPredictions}
+          addHandler={(symbol: string) => addHandler(symbol)}
+          closeHandler={() => {
+            setStockPredictions([])
+          }}
           />
-        )}
+          )}
       </div>
+      {<i className={classes.disclaimer}>*Results are less interactive due to api limitations. If nothing loads while searching it is due to the alpha vantage free version only supporting 25 requests a day</i>}
       <h1 className={classes.title}>FAVORITED STOCKS</h1>
       <hr className={classes.hr1} />
       <hr className={classes.hr2} />
@@ -226,8 +234,8 @@ export default function Stocks() {
       <hr className={classes.hr1} />
       <hr className={classes.hr2} />
       <hr className={classes.hr3} />
-      <i className={classes.cryptoDisclaimer}>
-        *due to free api limits - Crypto, mutual funds, currencies, futures and foreign exchanges are not supported.
+      <i className={classes.disclaimer}>
+        *Due to free api limits - Crypto, mutual funds, currencies, futures and foreign exchanges are not supported.
       </i>
       <div className={classes.stocksContainer}>{dataLoaded && trendingList}</div>
     </>

@@ -17,6 +17,6 @@ export const authenticated = (fn: NextApiHandler) => async (req: NextApiRequest,
       }
       return await fn(req, res)
     }
-    res.status(401).json({ message: "Sorry you are not authenticated" })
+    res.status(401).json({ message: "You are not authenticated" })
   })
 }
